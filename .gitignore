@@ -1,0 +1,8 @@
+*.app
+*.xcodeproj
+obj
+.vscode
+*.code-workspace
+*.DS_Store
+openFrameworks-Info.plist
+Project.xconfig
