@@ -1,18 +1,19 @@
 #include "Man.hpp"
 #include "Manager.hpp"
 
-Man::Man(const Manager& manager_ref) : manager(manager_ref) {
-    
+Man::Man(Manager& manager_ref) : manager(manager_ref) {
+    const float p = ofRandom(-PI,PI), t = ofRandom(-PI,PI);
+    position = glm::vec3(sin(p) * cos(t), sin(p) * sin(t), cos(p)) * manager.stage_radius * cbrt(ofRandom(1.0));
 }
 
 void Man::update() {
     
         // update position
 //        position += glm::vec3(ofNoise(noise_seed.x) * 0.5, ofNoise(noise_seed.y) * 0.5, ofNoise(noise_seed.z) * 0.5);
-    position += velocity * (manager.getCurrentTime() - manager.getBeforeUpdatedAt());
+    position += velocity * (manager.getCurrentTime() - manager.getBeforeUpdatedAt()) * 10.;
 
     // WIP
-    if (length(position) > 300) {
+    if (length(position) > manager.stage_radius) {
         velocity *= -1.;
     }
 
@@ -20,8 +21,19 @@ void Man::update() {
     if (state == State::Infected) {
         // infect other man
         for (auto& m : manager.getMen()) {
-            if (state == State::Susceptible && glm::length(position - m.position) < 100. && ofRandom(1) < manager.infection_rate) {
-                setState(State::Infected);
+
+            if (m.state == State::Susceptible) {
+            
+                
+                if (glm::length(position - m.position) < radius * 10 ) {
+                    
+                    if (ofRandom(1) < manager.infection_rate) {
+                        ofLogNotice() << "Infect!";
+                        m.setState(State::Infected);
+                    }
+                
+                    
+                }
             }
         }
         

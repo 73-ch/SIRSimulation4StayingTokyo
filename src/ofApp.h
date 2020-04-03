@@ -2,7 +2,8 @@
 
 #include "ofMain.h"
 
-#include "Manager.cpp"
+#include "Manager.hpp"
+#include "Man.hpp"
 
 class ofApp : public ofBaseApp{
 

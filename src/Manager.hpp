@@ -11,26 +11,24 @@ class Manager {
     vector<Man> men;
     float current_time = 0.;
     float before_updated_at = 0.;
-    int people_count = 100;
+    int people_count = 1000;
 
 public:
 
-    const float infection_rate = 0.001;
-    const float recovery_rate = 0.1;
-//    const glm::vec3 stage_size = glm::vec3();
+    const float infection_rate = 0.8;
+    const float recovery_rate = 0.05;
+    const float stage_radius = 150.;
+
+    Manager();
     
     void setup();
-    
     void randomCreate();
     
-    const vector<Man>& getMen() const;
-    
+    vector<Man>& getMen();
     float getCurrentTime() const;
-    
     float getBeforeUpdatedAt() const;
     
     void update();
-    
     void draw();
 };
 

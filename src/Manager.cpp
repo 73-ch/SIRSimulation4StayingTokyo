@@ -1,20 +1,26 @@
 #include "Manager.hpp"
 #include "Man.hpp"
 
-void Manager::setup() {
-        men.clear();
+Manager::Manager() {
     
-    }
+}
+
+void Manager::setup() {
+    men.clear();
+
+}
 
 void Manager::randomCreate() {
     for (int i = 0; i < people_count; i++) {
         Man man(*this);
         
-        man.setState(ofRandom(1) > 0.99 ? Man::State::Infected : Man::State::Susceptible);
+        man.setState(ofRandom(1) > 0.999 ? Man::State::Infected : Man::State::Susceptible);
+        
+        men.push_back(man);
     }
 }
 
-const vector<Man>& Manager::getMen() const {
+vector<Man>& Manager::getMen() {
     return men;
 }
 
