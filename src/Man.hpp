@@ -18,19 +18,22 @@ struct Man {
 
 private:
     Manager& manager;
+    string name;
     State state;
-    float infected_at = 0.;
+    float state_update_at = 0.;
     glm::vec3 position;
     glm::vec3 velocity = glm::vec3(ofRandom(-1,1.),ofRandom(-1,1.),ofRandom(-1,1.));
+    glm::vec3 bias = glm::vec3(1.);
     
-    const glm::vec3 noise_seed = glm::vec3(ofRandom(1.0),ofRandom(1.0),ofRandom(1.0));
+    const glm::vec3 noise_seed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
 
 public:
-    Man(Manager& manager_ref);
+    Man(Manager& manager_ref, const string name = ofToString(ofRandom(100)));
 
     void update();
     void draw();
     void setState(State g_state);
+    const string getName();
 
 };
 

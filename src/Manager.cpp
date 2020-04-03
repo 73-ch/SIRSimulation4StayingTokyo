@@ -2,22 +2,34 @@
 #include "Man.hpp"
 
 Manager::Manager() {
-    
 }
 
 void Manager::setup() {
-    men.clear();
-
+    
 }
 
 void Manager::randomCreate() {
+    
     for (int i = 0; i < people_count; i++) {
         Man man(*this);
-        
-        man.setState(ofRandom(1) > 0.999 ? Man::State::Infected : Man::State::Susceptible);
-        
         men.push_back(man);
     }
+    
+    for (int i = 0; i < 2; i++) {
+        men[int(ofRandom(men.size()))].setState(Man::State::Infected);
+    }
+    
+    men.push_back(Man(*this, "daito"));
+}
+
+Man& Manager::searchFromName(const string name) {
+    for (auto& m : men) {
+        if (m.getName() == name) {
+            return m;
+        }
+    }
+    
+    throw "no men";
 }
 
 vector<Man>& Manager::getMen() {
@@ -34,7 +46,7 @@ float Manager::getBeforeUpdatedAt() const {
 
 void Manager::update() {
     before_updated_at = current_time;
-    current_time = ofGetElapsedTimef();
+    current_time = ofGetElapsedTimef() * 4.0;
     
     for (auto& m : men) {
         m.update();
@@ -44,5 +56,13 @@ void Manager::update() {
 void Manager::draw() {
     for (auto& m : men) {
         m.draw();
+    }
+}
+
+void Manager::activeFromName(const string name) {
+    try {
+        searchFromName(name).setState(Man::State::Infected);
+    } catch(...) {
+        ofLogError() << "not found man : " + name;
     }
 }

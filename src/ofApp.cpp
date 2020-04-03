@@ -4,6 +4,8 @@
 void ofApp::setup(){
     ofSetBackgroundColor(0);
     manager.randomCreate();
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -14,7 +16,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     cam.begin();
-
+    
     manager.draw();
     
     cam.end();
@@ -22,7 +24,9 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if (key == ' ') {
+        manager.activeFromName("daito");
+    }
 }
 
 //--------------------------------------------------------------
