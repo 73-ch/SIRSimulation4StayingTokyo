@@ -9,7 +9,20 @@ Manager::Manager() {
     ofxSubscribeOsc(OF_PORT, "/manager/infection_rate", infection_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/recovery_rate", recovery_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/immunity_rate", immunity_rate);
+    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", time_scale);
     
+    ofxSubscribeOsc(OF_PORT, "/manager/reset", [&]() {
+        infection_rate = 0.4;
+        recovery_rate = 0.1;
+        immunity_rate = 0.04;
+        
+        float time_scale = 1.0;
+        float current_time = 0.;
+        
+        men.clear();
+        
+        randomCreate();
+    });
     
 
 //    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", <#T &value#>)
@@ -55,12 +68,16 @@ float Manager::getBeforeUpdatedAt() const {
 }
 
 void Manager::update() {
-    before_updated_at = current_time;
-    current_time = before_updated_at + (ofGetElapsedTimef() - before_updated_at);
+    const float elapsed_time = ofGetElapsedTimef();
+    const float delta_t = elapsed_time - before_updated_at;
+    
+    current_time += delta_t * time_scale;
     
     for (auto& m : men) {
-        m.update();
+        m.update(delta_t * time_scale);
     }
+    
+    before_updated_at = elapsed_time;
 }
 
 void Manager::draw() {

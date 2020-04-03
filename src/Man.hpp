@@ -30,7 +30,7 @@ private:
 public:
     Man(Manager& manager_ref, const string name = ofToString(ofRandom(100)));
 
-    void update();
+    void update(const float delta_t);
     void draw();
     void setState(State g_state);
     const string getName();

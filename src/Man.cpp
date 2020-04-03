@@ -6,18 +6,17 @@ Man::Man(Manager& manager_ref, const string name) : manager(manager_ref), name(n
     position = glm::vec3(sin(p) * cos(t), sin(p) * sin(t), cos(p)) * manager.stage_radius * cbrt(ofRandom(1.0));
 }
 
-void Man::update() {
+void Man::update(const float delta_t) {
     
     // update position
 //    position = glm::vec3(ofNoise(noise_seed.x, manager.getCurrentTime() * .01) * 0.5, ofNoise(noise_seed.y, manager.getCurrentTime() * 0.01) * 0.5, ofNoise(noise_seed.z, manager.getCurrentTime() * 0.01) * 0.5) * 100;
     velocity += glm::vec3(ofNoise(noise_seed.x, manager.getCurrentTime() * .01), ofNoise(noise_seed.y, manager.getCurrentTime() * 0.01), ofNoise(noise_seed.z, manager.getCurrentTime() * 0.01)) * 0.001 - glm::vec3(0.0005);
-    position += velocity * (manager.getCurrentTime() - manager.getBeforeUpdatedAt()) * 10.;
+    position += velocity * delta_t * 10.;
 
     // WIP
     if (length(position) > manager.stage_radius) {
         velocity *= -1.;
     }
-
 
     if (state == State::Infected) {
         // infect other man
