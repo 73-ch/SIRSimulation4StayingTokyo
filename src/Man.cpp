@@ -21,12 +21,23 @@ void Man::update() {
 
     if (state == State::Infected) {
         // infect other man
+    
         for (auto& m : manager.getMen()) {
             if (m.state == State::Susceptible &&
                 glm::length(position - m.position) < radius * 10 &&
                 ofRandom(1) < manager.infection_rate) {
                     m.setState(State::Infected);
             }
+            
+            // fordebug
+//            if (m.state == State::Susceptible) {
+//                ofLogNotice() << "hello";
+//                if (glm::length(position - m.position) < radius * 10) {
+//                    if (ofRandom(1) < manager.infection_rate) {
+//                        m.setState(State::Infected);
+//                    }
+//                }
+//            }
         }
         
         // recover

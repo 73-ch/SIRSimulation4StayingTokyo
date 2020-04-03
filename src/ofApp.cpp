@@ -5,7 +5,19 @@ void ofApp::setup(){
     ofSetBackgroundColor(0);
     manager.randomCreate();
     
-    
+    ofxSubscribeOsc(OF_PORT, "/cam/position", [&](ofVec3f pos) {
+        cam.setPosition(pos);
+        cam.lookAt(lookat);
+    });
+
+    ofxSubscribeOsc(OF_PORT, "/cam/lookat", [&](float a, float b, float c) {
+        lookat = glm::vec3(a,b,c);
+        cam.lookAt(lookat);
+    });
+
+    ofxSubscribeOsc(OF_PORT, "/cam/rotate", [&](const float rad, ofVec3f v) {
+        cam.rotateRad(rad, v);
+    });
 }
 
 //--------------------------------------------------------------

@@ -1,9 +1,7 @@
 #ifndef Manager_hpp
 #define Manager_hpp
 
-#include <stdio.h>
-
-#include "ofMain.h"
+#include "settings.h"
 
 class Man;
 
@@ -11,15 +9,14 @@ class Manager {
     vector<Man> men;
     float current_time = 0.;
     float before_updated_at = 0.;
-    int people_count = 1000;
     
     Man& searchFromName(const string name);
 
 public:
 
-    const float infection_rate = 0.8;
-    const float recovery_rate = 0.05;
-    const float immunity_rate = 0.025;
+    float infection_rate = 0.8;
+    float recovery_rate = 0.05;
+    float immunity_rate = 0.025;
     const float stage_radius = 150.;
 
     Manager();

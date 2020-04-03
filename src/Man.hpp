@@ -1,7 +1,7 @@
 #ifndef Man_hpp
 #define Man_hpp
 
-#include "ofMain.h"
+#include "settings.h"
 
 const float contact_distance = 100.;
 const float radius = 1.;
@@ -19,7 +19,7 @@ struct Man {
 private:
     Manager& manager;
     string name;
-    State state;
+    State state = State::Susceptible;
     float state_update_at = 0.;
     glm::vec3 position;
     glm::vec3 velocity = glm::vec3(ofRandom(-1,1.),ofRandom(-1,1.),ofRandom(-1,1.));

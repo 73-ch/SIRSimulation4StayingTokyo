@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ofMain.h"
+#include "settings.h"
 
 #include "Manager.hpp"
 #include "Man.hpp"
@@ -25,5 +25,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
   
     Manager manager;
+    
+    glm::vec3 lookat;
     ofEasyCam cam;
 };
