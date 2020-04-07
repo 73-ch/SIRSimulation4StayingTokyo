@@ -18,7 +18,8 @@ struct Man {
 
 private:
     Manager& manager;
-    string name;
+    const string name;
+    const string id;
     State state = State::Susceptible;
     float state_update_at = 0.;
     glm::vec3 position;
@@ -26,15 +27,19 @@ private:
     glm::vec3 bias = glm::vec3(1.);
     
     const glm::vec3 noise_seed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
+    
+    vector<string> comments;
 
 public:
-    Man(Manager& manager_ref, const string name = ofToString(ofRandom(100)));
+    Man(Manager& manager_ref, const string id = ofToString(ofRandom(100)), const string name = ofToString(ofRandom(100)), const string comment = "hello world");
 
     void update(const float delta_t);
     void draw();
     void setState(State g_state);
+    const string getId();
     const string getName();
-
+    
+    void addComment(const string comment);
 };
 
 #endif /* Man_hpp */

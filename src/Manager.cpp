@@ -2,8 +2,8 @@
 #include "Man.hpp"
 
 Manager::Manager() {
-    ofxSubscribeOsc(OF_PORT, "/manager/active", [&](const string name) {
-        activeFromName(name);
+    ofxSubscribeOsc(OF_PORT, "/manager/active", [&](const string id) {
+        activeFromId(id);
     });
     
     ofxSubscribeOsc(OF_PORT, "/manager/infection_rate", infection_rate);
@@ -24,6 +24,15 @@ Manager::Manager() {
         randomCreate();
     });
     
+    ofxSubscribeOsc(OF_PORT, "/manager/comment", [&](const string id, const string name, const string comment) {
+        try {
+            auto&m = searchFromId(id);
+            m.addComment(comment);
+            m.setState(Man::State::Infected);
+        } catch(...) {
+            men.push_back(Man(*this, id, name, comment));
+        }
+    });
 
 //    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", <#T &value#>)
 }
@@ -45,9 +54,9 @@ void Manager::randomCreate() {
     men.push_back(Man(*this, "daito"));
 }
 
-Man& Manager::searchFromName(const string name) {
+Man& Manager::searchFromId(const string id) {
     for (auto& m : men) {
-        if (m.getName() == name) {
+        if (m.getId() == id) {
             return m;
         }
     }
@@ -86,10 +95,10 @@ void Manager::draw() {
     }
 }
 
-void Manager::activeFromName(const string name) {
+void Manager::activeFromId(const string id) {
     try {
-        searchFromName(name).setState(Man::State::Infected);
+        searchFromId(id).setState(Man::State::Infected);
     } catch(...) {
-        ofLogError() << "not found man : " + name;
+        ofLogError() << "not found man : " + id;
     }
 }

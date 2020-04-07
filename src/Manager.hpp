@@ -11,11 +11,11 @@ class Manager {
     float before_updated_at = 0.;
     float time_scale = 1.0;
     
-    Man& searchFromName(const string name);
+    Man& searchFromId(const string id);
 
 public:
 
-    float infection_rate = 0.4;
+    float infection_rate = 1.0;
     float recovery_rate = 0.1;
     float immunity_rate = 0.04;
     const float stage_radius = 150.;
@@ -30,7 +30,7 @@ public:
     vector<Man>& getMen();
     float getCurrentTime() const;
     float getBeforeUpdatedAt() const;
-    void activeFromName(const string name);
+    void activeFromId(const string id);
     
     void update();
     void draw();

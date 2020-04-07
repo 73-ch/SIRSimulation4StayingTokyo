@@ -1,9 +1,10 @@
 #include "Man.hpp"
 #include "Manager.hpp"
 
-Man::Man(Manager& manager_ref, const string name) : manager(manager_ref), name(name) {
+Man::Man(Manager& manager_ref, const string id, const string name, const string comment) : manager(manager_ref), id(id) {
     const float p = ofRandom(-PI,PI), t = ofRandom(-PI,PI);
     position = glm::vec3(sin(p) * cos(t), sin(p) * sin(t), cos(p)) * manager.stage_radius * cbrt(ofRandom(1.0));
+    comments.push_back(comment);
 }
 
 void Man::update(const float delta_t) {
@@ -77,4 +78,15 @@ void Man::setState(State g_state) {
 
 const string Man::getName() {
     return name;
+}
+
+const string Man::getId() {
+    return id;
+}
+
+
+void Man::addComment(const string comment) {
+
+    comments.push_back(comment);
+    ofLogNotice() << comments.size();
 }

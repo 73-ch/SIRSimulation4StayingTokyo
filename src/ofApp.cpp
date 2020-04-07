@@ -37,7 +37,7 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key == ' ') {
-        manager.activeFromName("daito");
+        manager.activeFromId("daito");
     }
 }
 
