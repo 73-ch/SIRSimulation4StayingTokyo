@@ -14,11 +14,16 @@ class Manager {
     Man& searchFromId(const string id);
 
 public:
-
+    // SIR parameter
     float infection_rate = 1.0;
     float recovery_rate = 0.1;
     float immunity_rate = 0.04;
-    const float stage_radius = 150.;
+    const float stage_radius = 400.;
+    
+    // Boids parameter
+    const float separation_distance = 15.;
+    const float alignment_distance = 40.;
+    const float cohesion_distance = 60.;
     
     
 

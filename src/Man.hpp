@@ -29,6 +29,16 @@ private:
     const glm::vec3 noise_seed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
     
     vector<string> comments;
+    
+    float maxSpeed = 2.0;
+    float maxForce = 0.03;
+    float separationForce = 1.5;
+    float alignmentForce = 1.0;
+    float cohesionForce = 1.0;
+    
+    glm::vec3 formatAcceleration(glm::vec3) const;
+    void updateState();
+    void updateVel();
 
 public:
     Man(Manager& manager_ref, const string id = ofToString(ofRandom(100)), const string name = ofToString(ofRandom(100)), const string comment = "hello world");
