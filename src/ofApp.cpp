@@ -18,6 +18,15 @@ void ofApp::setup(){
     ofxSubscribeOsc(OF_PORT, "/cam/rotate", [&](const float rad, ofVec3f v) {
         cam.rotateRad(rad, v);
     });
+    
+    
+    // reset for max parameter
+    ofxOscMessage m;
+    m.addNoneArg();
+    m.setAddress("/reset");
+    ofxOscSender sender;
+    sender.setup(MAX_HOST, MAX_PORT);
+    sender.sendMessage(m);
 }
 
 //--------------------------------------------------------------

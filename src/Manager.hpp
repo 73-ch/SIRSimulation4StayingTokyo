@@ -32,7 +32,6 @@ public:
     const float alignment_distance = 80.;
     const float cohesion_distance = 100.;
     
-    
 
     Manager();
     
