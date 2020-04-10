@@ -9,8 +9,10 @@ class Manager {
     vector<Man> men;
     float current_time = 0.;
     float before_updated_at = 0.;
-    float time_scale = 1.0;
+    float timeScale = 1.0;
     
+    
+    // Boids parameter
     float maxSpeed = 2.0;
     float maxForce = 0.03;
     float separationForce = 1.5;
@@ -26,6 +28,8 @@ public:
     float recovery_rate = 0.1;
     float immunity_rate = 0.04;
     const float stage_radius = 400.;
+    
+    float infectionSlowdownRate = 0.2;
     
     // Boids parameter
     const float separation_distance = 30.;

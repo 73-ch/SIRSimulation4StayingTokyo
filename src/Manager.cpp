@@ -9,14 +9,14 @@ Manager::Manager() {
     ofxSubscribeOsc(OF_PORT, "/manager/infection_rate", infection_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/recovery_rate", recovery_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/immunity_rate", immunity_rate);
-    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", time_scale);
+    ofxSubscribeOsc(OF_PORT, "/manager/timeScale", timeScale);
     
     ofxSubscribeOsc(OF_PORT, "/manager/reset", [&]() {
         infection_rate = 0.4;
         recovery_rate = 0.1;
         immunity_rate = 0.04;
         
-        float time_scale = 1.0;
+        float timeScale = 1.0;
         float current_time = 0.;
         
         men.clear();
@@ -40,7 +40,8 @@ Manager::Manager() {
     ofxSubscribeOsc(OF_PORT, "/man/alignmentForce", alignmentForce);
     ofxSubscribeOsc(OF_PORT, "/man/cohesionForce", cohesionForce);
     ofxSubscribeOsc(OF_PORT, "/man/noiseForce", noiseForce);
-    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", time_scale);
+    ofxSubscribeOsc(OF_PORT, "/manager/timeScale", timeScale);
+    ofxSubscribeOsc(OF_PORT, "/manager/infectionSlowdownRate", infectionSlowdownRate);
 }
 
 void Manager::setup() {
@@ -105,10 +106,10 @@ void Manager::update() {
     const float elapsed_time = ofGetElapsedTimef();
     const float delta_t = elapsed_time - before_updated_at;
     
-    current_time += delta_t * time_scale;
+    current_time += delta_t * timeScale;
     
     for (auto& m : men) {
-        m.update(delta_t * time_scale);
+        m.update(delta_t * timeScale);
     }
     
     before_updated_at = elapsed_time;

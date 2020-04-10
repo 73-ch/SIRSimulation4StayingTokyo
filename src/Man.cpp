@@ -79,7 +79,7 @@ void Man::updateVel() {
     acceleration += manager.getNoiseForce() * glm::vec3(ofNoise(noiseSeed.x, manager.getCurrentTime()) - 0.5, ofNoise(noiseSeed.y, manager.getCurrentTime()) - 0.5, ofNoise(noiseSeed.z, manager.getCurrentTime()) - 0.5);
     
 
-    velocity = limit(velocity + acceleration, manager.getMaxSpeed());
+    velocity = limit(velocity + acceleration, manager.getMaxSpeed() * (state == State::Infected ? manager.infectionSlowdownRate : 1.0));
     
     // WIP
     velocity += glm::normalize(-position) * exp(glm::length(position) - manager.stage_radius);
