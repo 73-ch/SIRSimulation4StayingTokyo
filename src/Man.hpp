@@ -11,6 +11,7 @@ class Manager;
 struct Man {
     enum State {
         Susceptible,
+        Exposed,
         Infected,
         Recovered,
     };
@@ -25,6 +26,8 @@ private:
     glm::vec3 position;
     glm::vec3 velocity = glm::vec3(ofRandom(-1,1.),ofRandom(-1,1.),ofRandom(-1,1.));
     glm::vec3 noise = glm::vec3(ofRandom(20),ofRandom(-1,1),ofRandom(-1,1));
+    
+    float exposedSpan = 0.;
     
     const glm::vec3 noiseSeed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
     

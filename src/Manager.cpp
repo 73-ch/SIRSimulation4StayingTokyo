@@ -6,6 +6,7 @@ Manager::Manager() {
         activeFromId(id);
     });
     
+    ofxSubscribeOsc(OF_PORT, "/manager/incidence_rate", incidence_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/infection_rate", infection_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/recovery_rate", recovery_rate);
     ofxSubscribeOsc(OF_PORT, "/manager/immunity_rate", immunity_rate);
@@ -42,6 +43,8 @@ Manager::Manager() {
     ofxSubscribeOsc(OF_PORT, "/man/noiseForce", noiseForce);
     ofxSubscribeOsc(OF_PORT, "/manager/timeScale", timeScale);
     ofxSubscribeOsc(OF_PORT, "/manager/infectionSlowdownRate", infectionSlowdownRate);
+    ofxSubscribeOsc(OF_PORT, "/manager/exposedSpan", exposedSpan);
+    ofxSubscribeOsc(OF_PORT, "/manager/exposedSpanDiffMax", exposedSpanDiffMax);
 }
 
 void Manager::setup() {
@@ -55,7 +58,7 @@ void Manager::randomCreate() {
     }
     
     for (int i = 0; i < 2; i++) {
-        men[int(ofRandom(men.size()))].setState(Man::State::Infected);
+        men[int(ofRandom(men.size()))].setState(Man::State::Exposed);
     }
     
     men.push_back(Man(*this, "daito"));
@@ -81,6 +84,26 @@ float Manager::getCurrentTime() const {
 
 float Manager::getBeforeUpdatedAt() const {
     return before_updated_at;
+}
+
+float Manager::getIncidenceRate() const {
+    return infection_rate;
+}
+
+float Manager::getInfectionRate() const {
+    return infection_rate;
+}
+
+float Manager::getRecoveryRate() const {
+    return recovery_rate;
+}
+
+float Manager::getImmunityRate() const {
+    return immunity_rate;
+}
+
+float Manager::getExposedSpan() const {
+    return exposedSpan + ofRandom(exposedSpanDiffMax);
 }
 
 float Manager::getMaxSpeed() const {

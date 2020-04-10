@@ -11,6 +11,14 @@ class Manager {
     float before_updated_at = 0.;
     float timeScale = 1.0;
     
+    // SEIR parameter
+    float infection_rate = 1.0;
+    float recovery_rate = 0.1;
+    float immunity_rate = 0.04;
+    float incidence_rate = 0.8;
+    float exposedSpan = 5.0;
+    float exposedSpanDiffMax = 1.0;
+    
     
     // Boids parameter
     float maxSpeed = 2.0;
@@ -23,10 +31,6 @@ class Manager {
     Man& searchFromId(const string id);
 
 public:
-    // SIR parameter
-    float infection_rate = 1.0;
-    float recovery_rate = 0.1;
-    float immunity_rate = 0.04;
     const float stage_radius = 400.;
     
     float infectionSlowdownRate = 0.2;
@@ -45,6 +49,13 @@ public:
     vector<Man>& getMen();
     float getCurrentTime() const;
     float getBeforeUpdatedAt() const;
+    
+    float getIncidenceRate() const;
+    float getInfectionRate() const;
+    float getRecoveryRate() const;
+    float getImmunityRate() const;
+    float getExposedSpan() const;
+    
     float getMaxSpeed() const;
     float getMaxForce() const;
     float getSeparationForce() const;
