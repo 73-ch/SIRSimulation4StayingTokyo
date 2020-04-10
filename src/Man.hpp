@@ -24,17 +24,11 @@ private:
     float state_update_at = 0.;
     glm::vec3 position;
     glm::vec3 velocity = glm::vec3(ofRandom(-1,1.),ofRandom(-1,1.),ofRandom(-1,1.));
-    glm::vec3 bias = glm::vec3(1.);
+    glm::vec3 noise = glm::vec3(ofRandom(20),ofRandom(-1,1),ofRandom(-1,1));
     
-    const glm::vec3 noise_seed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
+    const glm::vec3 noiseSeed = glm::vec3(ofRandom(128.0),ofRandom(128.0),ofRandom(128.0));
     
     vector<string> comments;
-    
-    float maxSpeed = 2.0;
-    float maxForce = 0.03;
-    float separationForce = 1.5;
-    float alignmentForce = 1.0;
-    float cohesionForce = 1.0;
     
     glm::vec3 formatAcceleration(glm::vec3) const;
     void updateState();

@@ -48,16 +48,12 @@ void Man::updateState() {
 }
 
 glm::vec3 Man::formatAcceleration(glm::vec3 before) const {
-    return limit(glm::normalize(before) * maxSpeed - velocity, maxForce);
+    return limit(glm::normalize(before) * manager.getMaxSpeed() - velocity, manager.getMaxForce());
 }
 
 void Man::updateVel() {
-    // update position
-//    position = glm::vec3(ofNoise(noise_seed.x, manager.getCurrentTime() * .01) * 0.5, ofNoise(noise_seed.y, manager.getCurrentTime() * 0.01) * 0.5, ofNoise(noise_seed.z, manager.getCurrentTime() * 0.01) * 0.5) * 100;
-//    velocity += glm::vec3(ofNoise(noise_seed.x, manager.getCurrentTime() * .01), ofNoise(noise_seed.y, manager.getCurrentTime() * 0.01), ofNoise(noise_seed.z, manager.getCurrentTime() * 0.01)) * 0.001 - glm::vec3(0.0005);
     int alignment_count, cohesion_count;
     glm::vec3 separation_sum, alignment_sum, cohesion_sum;
-    
     
     // Boids
     for (auto& m : manager.getMen()) {
@@ -76,11 +72,14 @@ void Man::updateVel() {
         }
     }
     
-    glm::vec3 acceleration = glm::length(separation_sum) > 0 ? formatAcceleration(separation_sum) * separationForce : glm::vec3(0);
-    acceleration += alignment_count > 0 ? formatAcceleration(alignment_sum / (float)alignment_count) * alignmentForce : glm::vec3(0);
-    acceleration += cohesion_count > 0 ? formatAcceleration(cohesion_sum / (float)cohesion_count - position) * cohesionForce : glm::vec3(0);
+    glm::vec3 acceleration = glm::length(separation_sum) > 0 ? formatAcceleration(separation_sum) * manager.getSeparationForce() : glm::vec3(0);
+    acceleration += alignment_count > 0 ? formatAcceleration(alignment_sum / (float)alignment_count) * manager.getAlignmentForce() : glm::vec3(0);
+    acceleration += cohesion_count > 0 ? formatAcceleration(cohesion_sum / (float)cohesion_count - position) * manager.getCohesionForce() : glm::vec3(0);
+    
+    acceleration += manager.getNoiseForce() * glm::vec3(ofNoise(noiseSeed.x, manager.getCurrentTime()) - 0.5, ofNoise(noiseSeed.y, manager.getCurrentTime()) - 0.5, ofNoise(noiseSeed.z, manager.getCurrentTime()) - 0.5);
+    
 
-    velocity = limit(velocity + acceleration, maxSpeed);
+    velocity = limit(velocity + acceleration, manager.getMaxSpeed());
     
     // WIP
     velocity += glm::normalize(-position) * exp(glm::length(position) - manager.stage_radius);

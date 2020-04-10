@@ -11,6 +11,13 @@ class Manager {
     float before_updated_at = 0.;
     float time_scale = 1.0;
     
+    float maxSpeed = 2.0;
+    float maxForce = 0.03;
+    float separationForce = 1.5;
+    float alignmentForce = 1.0;
+    float cohesionForce = 1.0;
+    float noiseForce = 0.1;
+    
     Man& searchFromId(const string id);
 
 public:
@@ -21,9 +28,9 @@ public:
     const float stage_radius = 400.;
     
     // Boids parameter
-    const float separation_distance = 15.;
-    const float alignment_distance = 40.;
-    const float cohesion_distance = 60.;
+    const float separation_distance = 30.;
+    const float alignment_distance = 80.;
+    const float cohesion_distance = 100.;
     
     
 
@@ -35,6 +42,14 @@ public:
     vector<Man>& getMen();
     float getCurrentTime() const;
     float getBeforeUpdatedAt() const;
+    float getMaxSpeed() const;
+    float getMaxForce() const;
+    float getSeparationForce() const;
+    float getAlignmentForce() const;
+    float getCohesionForce() const;
+    float getNoiseForce() const;
+    
+    
     void activeFromId(const string id);
     
     void update();

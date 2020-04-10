@@ -32,6 +32,8 @@ void ofApp::draw(){
     manager.draw();
     
     cam.end();
+    
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------

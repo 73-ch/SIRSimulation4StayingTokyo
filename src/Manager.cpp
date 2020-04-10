@@ -33,8 +33,14 @@ Manager::Manager() {
             men.push_back(Man(*this, id, name, comment));
         }
     });
-
-//    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", <#T &value#>)
+    
+    ofxSubscribeOsc(OF_PORT, "/man/maxSpeed", maxSpeed);
+    ofxSubscribeOsc(OF_PORT, "/man/maxForce", maxForce);
+    ofxSubscribeOsc(OF_PORT, "/man/separationForce", separationForce);
+    ofxSubscribeOsc(OF_PORT, "/man/alignmentForce", alignmentForce);
+    ofxSubscribeOsc(OF_PORT, "/man/cohesionForce", cohesionForce);
+    ofxSubscribeOsc(OF_PORT, "/man/noiseForce", noiseForce);
+    ofxSubscribeOsc(OF_PORT, "/manager/time_scale", time_scale);
 }
 
 void Manager::setup() {
@@ -42,7 +48,7 @@ void Manager::setup() {
 }
 
 void Manager::randomCreate() {
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 500; i++) {
         Man man(*this);
         men.push_back(man);
     }
@@ -75,6 +81,25 @@ float Manager::getCurrentTime() const {
 float Manager::getBeforeUpdatedAt() const {
     return before_updated_at;
 }
+
+float Manager::getMaxSpeed() const {
+    return maxSpeed;
+};
+float Manager::getMaxForce() const {
+    return maxForce;
+};
+float Manager::getSeparationForce() const {
+    return separationForce;
+};
+float Manager::getAlignmentForce() const {
+    return alignmentForce;
+};
+float Manager::getCohesionForce() const {
+    return cohesionForce;
+};
+float Manager::getNoiseForce() const {
+    return noiseForce;
+};
 
 void Manager::update() {
     const float elapsed_time = ofGetElapsedTimef();
