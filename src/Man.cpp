@@ -41,7 +41,6 @@ void Man::updateState() {
         }
         
     } else if (state == State::Exposed) {
-        ofLogNotice() << manager.getCurrentTime() - state_update_at << "," << exposedSpan;
         if (manager.getCurrentTime() - state_update_at > exposedSpan && ofRandom(1) < manager.getIncidenceRate()) {
             setState(State::Infected);
         }

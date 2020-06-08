@@ -35,6 +35,12 @@ Manager::Manager() {
         }
     });
     
+    ofxSubscribeOsc(OF_PORT, "/manager/randomInfect", [&](int count) {
+        for (int i = 0; i < count; i++) {
+            men[int(ofRandom(men.size()))].setState(Man::State::Exposed);
+        }
+    });
+    
     ofxSubscribeOsc(OF_PORT, "/man/maxSpeed", maxSpeed);
     ofxSubscribeOsc(OF_PORT, "/man/maxForce", maxForce);
     ofxSubscribeOsc(OF_PORT, "/man/separationForce", separationForce);
